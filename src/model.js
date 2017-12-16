@@ -14,14 +14,8 @@ var heroSchema = Schema({
     name: String
 });
 
-heroSchema.query.byName = (name) => {
-    return this.find({
-        name: new RegExp(name, 'i')
-    });
-};
-
-heroSchema.query.findAll = (name) => {
-    return this.find();
+heroSchema.methods.byName = (name) => {
+    this.model('Hero').find({name: new RegExp(name, i)});
 };
 
 var Hero = mongoose.model('Hero', heroSchema);

@@ -20,15 +20,34 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    res.send('change hero: ' + req.params.id);
+    Hero.findById(req.params.id, (err, hero) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        hero.name = req.body.name;
+
+        hero.save((err, hero) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.send(hero);
+        });
+
+    });
 });
 
 router.delete('/:id', (req, res) => {
-    res.send('delete hero: ' + req.params.id);
+    Hero.findByIdAndRemove(req.params.id, (err, hero) => {
+        res.send('delete hero: ' + req.params.id);
+    });
 });
 
 router.get('/:name', (req, res) => {
-    res.send('Search for heroes: ' + req.params.name);
+    Hero.find({
+        name: new RegExp(req.params.name, "i")
+    }, (err, heroes) => {
+        res.send(heroes);
+    });
 });
 
 module.exports = router
