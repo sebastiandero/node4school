@@ -1,9 +1,11 @@
 const config = require('../config/config');
 
 var mongoose = require('mongoose');
+
 mongoose.connect(config.db.url, {
     useMongoClient: true
 });
+
 mongoose.Promise = global.Promise;
 
 var Schema = mongoose.Schema;
