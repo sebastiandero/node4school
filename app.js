@@ -3,9 +3,11 @@ const app = express();
 const mainRouter = require('./src/router');
 const heroesRouter = require('./src/heroes');
 
-app.use('/', mainRouter);
-app.use('/heroes', heroesRouter);
+const config = require('./config/config')
 
-app.listen(3000, () => {
+app.use(config.app.path + '/', mainRouter);
+app.use(config.app.path + '/heroes', heroesRouter);
+
+app.listen(config.app.port, () => {
     console.log('Example app listening on port 3000!');
 });

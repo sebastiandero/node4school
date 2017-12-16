@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var heroes = require('./heroes');
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
